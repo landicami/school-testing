@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import  mockedLocalStorage  from "../mocks/mockedLocalStorage";
 import { getTodos, saveTodos } from "../utils/todoStorage";
 import { Todo } from "../types/Todo";
@@ -32,19 +32,25 @@ afterEach(() => {
 
 describe("get todos", () => {
 	it("returns empty lists of todos",  () => {
+		const getItemsSpy = vi.spyOn(globalThis.localStorage, "getItem");
 		const todos = getTodos();
+
+		expect(getItemsSpy).toHaveBeenCalledOnce();
 		expect(todos.length).toBe(0);
 	});
 });
 
 describe("save todos", () => {
 	it("can save a todo", () => {
+		//register a spy
+		const setItemSpy = vi.spyOn(globalThis.localStorage, "setItem")
 		//gör först en array av objektet TODO
 		const todosArray: Todo[] = [TODO];
 		//anropa save todos
 		const setTodo = saveTodos(todosArray);
 		// förvänta att det blir sucess av arrayen setTodo
 		expect(setTodo.success).toBe(true);
+		expect(setItemSpy).toHaveBeenCalledOnce();
 
 	});
 
@@ -59,5 +65,9 @@ describe("save todos", () => {
 		const newListTodo = getTodos();
 		//förvänta dig att den nya listan innehåller din nya TODO
 		expect(newListTodo).toEqual([TODO]);
+
+		//eller skicka in objektet
+		//expect(todos).toContainEqual(TODO);
+
 	});
 });
