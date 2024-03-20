@@ -1,0 +1,20 @@
+{
+  "name": "lektion-1",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "coverage": "vitest run --coverage",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:verbose": "vitest --reporter verbose"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.4.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.6",
+    "vitest": "^1.4.0"
+  }
+}
