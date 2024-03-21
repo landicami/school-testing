@@ -1,5 +1,4 @@
 import { Todo } from "../types/Todo";
-import { } from "../tests/data/todos";
 
 // render output to an HTML element
 export const render = (element: HTMLElement, html: string) => {
