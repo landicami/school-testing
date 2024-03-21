@@ -1,5 +1,8 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import  mockedLocalStorage  from "../mocks/mockedLocalStorage";
+/**
+ * @vitest-environment happy-dom
+ */
+import { afterEach, describe, expect, it, vi } from "vitest"; //beforeEach
+// import  mockedLocalStorage  from "../mocks/mockedLocalStorage";
 import { getTodos, saveTodos } from "../utils/todoStorage";
 import { Todo } from "../types/Todo";
 
@@ -7,7 +10,7 @@ import { Todo } from "../types/Todo";
 // console.log(fakeLocalStorage);
 
 // globalThis.localStorage = fakeLocalStorage;
-let orginalLocalStorage: any;
+// let orginalLocalStorage: any;
 
 const TODO: Todo = {
 	id: 1,
@@ -16,19 +19,24 @@ const TODO: Todo = {
 };
 
 //före varje test vill jag spara ner original och sedan byta ut originalstorage till fejstorage
-beforeEach(() => {
-	orginalLocalStorage = globalThis.localStorage;
+// beforeEach(() => {
+// 	orginalLocalStorage = globalThis.localStorage;
 
-	//replace
-	const fakeLocalStorage = mockedLocalStorage();
-	globalThis.localStorage = fakeLocalStorage;
-});
+// 	//replace
+// 	const fakeLocalStorage = mockedLocalStorage();
+// 	globalThis.localStorage = fakeLocalStorage;
+// });
 
+// afterEach(() => {
+// 	//restore localstorage to original
+// 	globalThis.localStorage = orginalLocalStorage;
+
+// });
+
+//clear localstorage efter varje test
 afterEach(() => {
-	//restore localstorage to original
-	globalThis.localStorage = orginalLocalStorage;
-
-});
+	globalThis.localStorage.clear();
+})
 
 describe("get todos", () => {
 	it("returns empty lists of todos",  () => {
