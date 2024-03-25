@@ -1,12 +1,20 @@
 import { describe, it, expect } from "vitest";
 import * as TodoAPI from "../services/TodoAPI";
+import { TodoData } from "../types/Todo";
 
 describe("TodoAPI", () => {
-	it.todo("Should return a list", () => {
-
+	it("should return a list", async () => {
+		const todos = await TodoAPI.getTodos();
+		expect(Array.isArray(todos)).toBe(true); //kolla om det är en array
 	});
 
-	it.todo("should create a todo");
+	it("should create a todo", async () => {
+		const todo: TodoData = { title: "My todo", completed: false }
+		const createTodo = await TodoAPI.createTodo(todo);
+		console.log(createTodo);
+		expect(createTodo.title).toBe(todo.title);
+
+	});
 
 	it.todo("should create and then get the todo");
 
