@@ -1,19 +1,24 @@
-import { afterAll, beforeEach, describe, it, expect } from "vitest";
+import { afterAll, beforeEach, describe, it, expect, beforeAll, afterEach } from "vitest";
+import { server } from "../mocks/server";
 import * as TodoAPI from "../services/TodoAPI";
 import { TodoData } from "../types/Todo";
 
-const deleteAllTodos = async () => {
-	// get all todos and then delete them one by one 😩
-	const todos = await TodoAPI.getTodos();
+beforeAll(()=> {
+	server.listen();
+});
 
-	// delete them one by one
-	for (let i = 0; i < todos.length; i++) {
-		await TodoAPI.deleteTodo(todos[i].id);
-	}
+afterEach(() => {
+	server.resetHandlers();
+});
+
+afterAll(() => {
+	server.close();
+});
+
+const newTodo: TodoData = {
+	title: "Test todo",
+	completed: false,
 }
-
-beforeEach(deleteAllTodos);
-afterAll(deleteAllTodos);
 
 
 describe("TodoAPI", () => {
