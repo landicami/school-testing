@@ -1,6 +1,6 @@
 describe("Home Page", () => {
 	beforeEach(() => {
-		cy.visit("http://localhost:3000");
+		cy.visit("/");
 
 		// wait for the app to be fully hydrated and visible
 		cy.get("#__next").should("be.visible");
@@ -22,5 +22,20 @@ describe("Home Page", () => {
 
 			cy.get("dt").eq(2).contains("Free and Open Source");
 		});
+	})
+
+	context("Course section", () => {
+		it.only("shoud get the first course", () => {
+			cy.getByData("course-0").find("a").contains("Get started");
+			cy.getByData("course-0")
+			.find("a")
+			.eq(-1)
+			.click()
+			cy.location("pathname").should("equal", "/testing-your-first-application")
+
+
+		})
+
+
 	})
 });
