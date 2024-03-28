@@ -29,11 +29,20 @@ describe("Newsletter subscribe", () => {
 		cy.getByData("success-message").should("not.exist")
 	})
 
-	it.only("should not allow users to subscribe twice", () => {
+	it("should not allow users to subscribe twice", () => {
 		cy.getByData("email-input").type(existingSubscriberEmail);
 		cy.getByData("submit-button").click()
-		cy.getByData("server-error-message").contains("Error").contains(existingSubscriberEmail)
+		cy.getByData("server-error-message")
+		.should("be.visible")
+		.contains("Error").contains(existingSubscriberEmail)
 
-	});
+	})
+
+	it("should not allow subscribing without an emailadress", () => {
+		cy.getByData("submit-button").click()
+		cy.getByData("error-message")
+		.should("be.visible")
+		.contains("Email is required")
+	})
 
 });
