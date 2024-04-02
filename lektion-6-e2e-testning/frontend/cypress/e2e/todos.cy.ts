@@ -1,11 +1,22 @@
 describe("trying out todos", () => {
-	beforeEach(() => {
-		cy.visit("/")
 
-	})
 
 	context("inital state", () => {
-		it("should see at least one todo", () => {
+		beforeEach(() => {
+			// cy.intercept("GET", "http://localhost:3001/todos", [
+			// 	{
+			// 		id: 1337, title: "I like todos", completed: false
+			// 	},
+			// ])
+			cy.intercept("GET", "http://localhost:3001/todos", {
+				fixture: "todos.json",
+			})
+
+			cy.visit("/")
+
+		})
+
+		it.only("should see at least one todo", () => {
 			cy.get("#todos").find("li").should("have.length.at.least", 1);
 		});
 
@@ -18,6 +29,10 @@ describe("trying out todos", () => {
 	// 	cy.get('#todos').find("li").should("have.length.at.least", 1)
 	// })
 	context("create todo", () => {
+		beforeEach(() => {
+			cy.visit("/")
+
+		})
 
 		it.skip("create todo form should be empty", () => {
 			cy.get('#new-todo-title').should("have.value", "");
@@ -61,7 +76,7 @@ describe("trying out todos", () => {
 		// 		cy.get("#new-todo-title").should("have.value", "");
 		// });
 
-		it.only("can type in the create todo form and then reset the form", () => {
+		it.skip("can type in the create todo form and then reset the form", () => {
 			cy.get('#new-todo-title').type("Create a new todo")
 			// cy.get('.btn-warning').contains("Reset").click();
 			cy.get("[type=\"reset\"]").click();
