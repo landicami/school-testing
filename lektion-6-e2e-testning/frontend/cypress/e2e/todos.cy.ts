@@ -10,14 +10,18 @@ describe("trying out todos", () => {
 			// ])
 			cy.intercept("GET", "http://localhost:3001/todos", {
 				fixture: "todos.json",
-			})
+			}).as("getTodos")
 
 			cy.visit("/")
 
 		})
 
-		it.only("should see at least one todo", () => {
-			cy.get("#todos").find("li").should("have.length.at.least", 1);
+		it.only("should see two mocked todo", () => {
+			cy.wait("@getTodos")
+			cy.get("#todos").find("li").should("have.length", 2);
+
+			cy.get("#todos").find("li").first().should("have.class", "completed").contains("My first todo");
+
 		});
 
 		it("should not show the error dialog", () => {
