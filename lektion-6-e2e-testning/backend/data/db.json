@@ -1,3 +1,19 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "title": "See you when you get there",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "title": "If you ever get there",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "title": "See you when you get there",
+      "completed": false,
+      "id": 3
+    }
+  ]
 }
